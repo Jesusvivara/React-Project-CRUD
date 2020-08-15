@@ -24,7 +24,7 @@ export default function Login(props) {
             props.setLogged(true);
             history.push("/PanelUser");
         } else {
-            props.setIsLogged(false);
+            props.setLogged(false);
         }
     };
 

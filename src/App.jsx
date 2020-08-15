@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect, useHistory, } from "react-router-dom";
+import { Switch, Route, Redirect, } from "react-router-dom";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import PanelUsers from "./task/PanelUser"
