@@ -1,67 +1,62 @@
 import React from "react";
+import { Switch, Route, Redirect, useHistory, } from "react-router-dom";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
+import PanelUsers from "./task/PanelUser"
 import "./App.css";
 import Loading from "./Components/cargando";
+import { useState, useEffect } from "react";
 
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      viewState: 'loading',
-      loged: 'login',
-      Loading: true
-    };
-  }
+export default function App() {
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState(state => ({ viewState: state.loged }));
-    }, 2000);
-  }
+  const [isLogged, setLogged] = useState(false);
 
+  const [loading, SetLoading] = useState(true)
 
-  isLogin = e => {
-    e.preventDefault();
-    this.setState(state => ({
-      viewState: 'Register'
-    }));
-  };
-
-  isRegister = e => {
-    e.preventDefault();
-    this.setState(state => ({
-      viewState: 'login'
-    }));
-  };
-
-  render() {
-    switch (this.state.viewState) {
-
-      case 'loading':
-        return (
+  const Carga = () => {
+    if (loading === true) {
+      return (
+        <Route exact path="/" >
           <Loading />
-        )
-
-      case 'Register':
-        return (
-          <div>
-            <Register isLogin={this.isRegister} />
-          </div>
-        );
-
-      case 'login':
-        return (
-          <div>
-            <Login isRegister={this.isLogin} />
-          </div>
-        );
-
-      default:
-        break;
+        </Route>
+      )
+    } else {
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            search: "",
+            state: {}
+          }}
+        />
+      )
     }
-  }
-}
+  };
 
-export default App;
+  useEffect(() => {
+    setTimeout(() => {
+      SetLoading(false)
+    }, 2500);
+  }, []);
+
+
+  return (
+    <div className="App">
+      <Switch>
+        <Route path="/Register">
+          <Register />
+        </Route>
+        <Route exact path="/">
+          <Carga loading={loading} />
+        </Route>
+        <Route exact path="/login">
+          <Login setLogged={setLogged} />
+        </Route>
+        <Route path="/PanelUser">
+          <PanelUsers isLogged={isLogged} />
+        </Route>
+      </Switch>
+    </div>
+  );
+}

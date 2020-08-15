@@ -1,5 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom"
+
 
 class Register extends React.Component {
     constructor(props) {
@@ -15,7 +17,7 @@ class Register extends React.Component {
     }
     registerUser = event => {
         event.preventDefault();
-        fetch("https://academlo-todolist.herokuapp.com/register", {
+        fetch("/register", {
             method: "POST",
             headers: { "content-type": "application/json; charset=UTF-8" },
             body: JSON.stringify(this.state.formUser)
@@ -114,7 +116,7 @@ class Register extends React.Component {
                             <br></br>
                             <button type="submit"> Enviar </button>
                         </form>
-                        <p>Ya tienes una cuenta <span onClick={this.props.isLogin}>Inicia sesion</span></p>
+                        <p>Ya tienes una cuenta <Link className="Link" to="/Login">Inicia Sesion</Link></p>
                     </div>
                 </div>
             </div>

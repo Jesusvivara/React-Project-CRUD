@@ -49,9 +49,10 @@ body{
     transform: rotate(360deg);
   }
 }
-span{
+.Link{
   text-decoration: underline;
   cursor: pointer;
+  color: #0a0a0a;
 }
 
 .container-form{
@@ -71,7 +72,7 @@ span{
 }
 
 .container-form:hover{
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 .imggradient{
@@ -315,7 +316,7 @@ button{
         background: rgba(240, 240, 240, 0.7);
         width: 100%;
         max-width: 1024px;
-        margin: 9% auto;
+        margin: 5% auto;
         color: rgb(36, 36, 36);
         border-bottom-left-radius: 0.75rem;
         border-bottom-right-radius: 0.75rem;
