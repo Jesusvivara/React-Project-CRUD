@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom"
-import AddTask from "./AddTask"
 import Tasks from "./Tasks"
 
 export default function PanelUser(props) {

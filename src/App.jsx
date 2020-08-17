@@ -8,7 +8,7 @@ import Loading from "./Components/cargando";
 import { useState, useEffect } from "react";
 
 
-export default function App() {
+export default function App(props) {
 
   const [isLogged, setLogged] = useState(false);
 
@@ -39,6 +39,8 @@ export default function App() {
       SetLoading(false)
     }, 2500);
   }, []);
+
+
 
 
   return (
