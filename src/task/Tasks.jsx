@@ -8,7 +8,8 @@ export default class tasks extends React.Component {
         this.state = {
             tasks: [],
             formTareas:{},
-            newTask:{}
+            newTask:{},
+            filter:""
         };
     }
 
@@ -243,7 +244,7 @@ export default class tasks extends React.Component {
         let endOfWeek = moment().endOf("week");
         let startOfNextWeek = moment(endOfWeek).add(1, "seconds");
         let endOfNextWeek = moment(endOfWeek).add(7, "days");
-        switch (this.state.tasks) {
+        switch (this.state.filter) {
           case "today":
             if (moment(task.date).isSame(today, "day")) {
               return true;
@@ -285,7 +286,7 @@ export default class tasks extends React.Component {
                     <div>
                         {this.myEditForm()}
                         <div>
-                          <select onChange={(event) => this.onChangeSelect(event.target.value)}>
+                          <select onChange={(event) => this.setState({...this.state,filter:event.target.value})}>
                             <option value="all">Todas</option>
                             <option value="today">Hoy</option>
                             <option value="week">En la semana</option>
@@ -296,7 +297,7 @@ export default class tasks extends React.Component {
                 </div>
                 <h2>Hola estas son tus tareas pendientes</h2>
                 <div>
-                    {this.state.tasks.map((task, index) => {
+                    {this.state.tasks.filter((task) => this.onChangeSelect(task)).map((task, index) => {
                         return (
                             <div key={index}>
                                 <div>
