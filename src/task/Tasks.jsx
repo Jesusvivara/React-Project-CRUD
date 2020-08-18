@@ -3,12 +3,38 @@ import Swal from "sweetalert2";
 import moment from "moment";
 
 export default class tasks extends React.Component {
+<<<<<<< HEAD
   constructor() {
     super();
     this.state = {
       tasks: [],
       formTareas: {},
       newTask: {}
+=======
+    constructor() {
+        super();
+        this.state = {
+            tasks: [],
+            formTareas:{},
+            newTask:{},
+            filter:""
+        };
+    }
+
+    componentDidMount() {
+        this.getTasks();
+    }
+
+    getTasks = () => {
+        const url = "/tasks?limit=20";
+        fetch(url)
+            .then(response => response.json())
+            .then(myJson => {
+                this.setState({ tasks: myJson.results });
+                console.log(myJson);
+            })
+            .catch(error => console.log(error));
+>>>>>>> a5a093053f1dc6074875600f7ffd0e0c3d5cbc90
     };
   }
 
@@ -237,6 +263,7 @@ export default class tasks extends React.Component {
     );
   }
 
+<<<<<<< HEAD
   onChangeSelect = (task) => {
     let today = moment(); //Fecha de hoy usando moment
     let startOfWeek = moment().startOf("week");
@@ -247,6 +274,42 @@ export default class tasks extends React.Component {
       case "today":
         if (moment(task.date).isSame(today, "day")) {
           return true;
+=======
+      onChangeSelect = (task) => {
+        let today = moment(); //Fecha de hoy usando moment
+        let startOfWeek = moment().startOf("week");
+        let endOfWeek = moment().endOf("week");
+        let startOfNextWeek = moment(endOfWeek).add(1, "seconds");
+        let endOfNextWeek = moment(endOfWeek).add(7, "days");
+        switch (this.state.filter) {
+          case "today":
+            if (moment(task.date).isSame(today, "day")) {
+              return true;
+            }
+            return false;
+          case "week":
+            if (moment(task.date).isBetween(startOfWeek, endOfWeek)) {
+              return true;
+            }
+            return false;
+          case "nextWeek":
+            if (moment(task.date).isBetween(startOfNextWeek, endOfNextWeek)) {
+              return true;
+            }
+            return false;
+          case "complete":
+            if (task.is_completed) {
+              return true;
+            }
+            return false;
+          case "noComplete":
+            if (!task.is_completed) {
+              return true;
+            }
+            return false;
+          default:
+            return true;
+>>>>>>> a5a093053f1dc6074875600f7ffd0e0c3d5cbc90
         }
         return false;
       case "week":
@@ -300,6 +363,7 @@ export default class tasks extends React.Component {
             return (
               <div key={index}>
                 <div>
+<<<<<<< HEAD
                   {task.content}
                   <br />
                   <input
@@ -311,6 +375,44 @@ export default class tasks extends React.Component {
                     <button onClick={() => this.setFormTarea(task)}>Editar</button>
                     <button onClick={() => this.deleteTarea(task._id)}>Eliminar</button>
                   </div>
+=======
+                    <div>
+                        {this.myAddTask()}
+                    </div>
+                    <div>
+                        {this.myEditForm()}
+                        <div>
+                          <select onChange={(event) => this.setState({...this.state,filter:event.target.value})}>
+                            <option value="all">Todas</option>
+                            <option value="today">Hoy</option>
+                            <option value="week">En la semana</option>
+                            <option value="nextWeek">Proxima semana</option>
+                          </select>
+                        </div>
+                    </div>
+                </div>
+                <h2>Hola estas son tus tareas pendientes</h2>
+                <div>
+                    {this.state.tasks.filter((task) => this.onChangeSelect(task)).map((task, index) => {
+                        return (
+                            <div key={index}>
+                                <div>
+                                    {task.content}
+                                    <br/>
+                                    <input 
+                                    type="date"
+                                    value={this.formatDate(task.date)}
+                                    disabled="true"
+                                    />
+                                    <div>
+                                        <button onClick={()=>this.setFormTarea(task)}>Editar</button>
+                                        <button onClick={()=>this.deleteTarea(task._id)}>Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+>>>>>>> a5a093053f1dc6074875600f7ffd0e0c3d5cbc90
                 </div>
               </div>
             );
