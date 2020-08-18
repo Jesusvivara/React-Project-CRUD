@@ -17,7 +17,7 @@ class Register extends React.Component {
     }
     registerUser = event => {
         event.preventDefault();
-        fetch("/register", {
+        fetch("https://academlo-todolist.herokuapp.com/register", {
             method: "POST",
             headers: { "content-type": "application/json; charset=UTF-8" },
             body: JSON.stringify(this.state.formUser)
