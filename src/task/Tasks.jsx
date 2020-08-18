@@ -17,7 +17,7 @@ export default class tasks extends React.Component {
   }
 
   getTasks = () => {
-    const url = "/tasks?limit=20";
+    const url = "https://academlo-todolist.herokuapp.com/tasks?limit=20";
     fetch(url)
       .then(response => response.json())
       .then(myJson => {
